@@ -1,9 +1,9 @@
-token: "ТВОЙ_LICHESS_ТОКЕН"
+token: ${LICHESS_BOT_TOKEN}
 
 url: "https://lichess.org/"
 
 engine:
-  dir: "./engines/"
+  dir: "../stockfish/src/"
   name: "stockfish"
   protocol: "uci"
   ponder: true
