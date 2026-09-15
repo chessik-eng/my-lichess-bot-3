@@ -11,3 +11,30 @@ engine:
 uci_options:
   Threads: 2
   Hash: 512
+
+challenge:
+  concurrency: 1
+  sort_by: "first"
+  preference: "none"
+  accept_bot: true
+  only_bot: false
+  max_increment: 180
+  min_increment: 0
+  max_base: 10800
+  min_base: 0
+
+  variants:
+    - standard
+
+  time_controls:
+    - bullet
+    - blitz
+    - rapid
+    - classical
+
+  modes:
+    - casual
+    - rated
+
+matchmaking:
+  allow_matchmaking: false
