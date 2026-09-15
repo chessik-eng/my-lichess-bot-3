@@ -1,0 +1,48 @@
+name: Ykret Lichess Bot
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout bot repository
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git build-essential python3 python3-pip
+
+      - name: Download lichess-bot
+        run: |
+          git clone --depth 1 https://github.com/lichess-bot-devs/lichess-bot.git
+
+      - name: Install lichess-bot dependencies
+        run: |
+          python3 -m pip install --break-system-packages -r lichess-bot/requirements.txt
+
+      - name: Download Stockfish 19 source
+        run: |
+          git clone --branch sf_19 --depth 1 https://github.com/official-stockfish/Stockfish.git stockfish
+
+      - name: Build Stockfish 19
+        run: |
+          cd stockfish/src
+          make -j2 build ARCH=x86-64
+
+      - name: Check Stockfish version
+        run: |
+          ./stockfish/src/stockfish bench 1 1 1 default depth
+
+      - name: Start Lichess bot
+        env:
+          LICHESS_BOT_TOKEN: ${{ secrets.LICHESS_BOT_TOKEN }}
+        run: |
+          cd lichess-bot
+          python3 lichess-bot.py --config ../config.yml
