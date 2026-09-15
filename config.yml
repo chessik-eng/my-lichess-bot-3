@@ -1,0 +1,13 @@
+token: "ТВОЙ_LICHESS_ТОКЕН"
+
+url: "https://lichess.org/"
+
+engine:
+  dir: "./engines/"
+  name: "stockfish"
+  protocol: "uci"
+  ponder: true
+
+uci_options:
+  Threads: 2
+  Hash: 512
