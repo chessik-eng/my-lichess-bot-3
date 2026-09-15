@@ -1,4 +1,4 @@
-token: ${LICHESS_BOT_TOKEN}
+token: "${LICHESS_BOT_TOKEN}"
 
 url: "https://lichess.org/"
 
